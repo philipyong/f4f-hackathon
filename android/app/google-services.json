@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "46301712612",
+    "project_id": "f4f-hackathon",
+    "storage_bucket": "f4f-hackathon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:46301712612:android:7afa1857211ae6d29ddcf1",
+        "android_client_info": {
+          "package_name": "com.example.f4f_hackathon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "46301712612-brgp0dk0lpfnj8h3i2akt8gmi97523k6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlRrqSMKD9CDs-z3Xv_YaiZD0tQ74VVy8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "46301712612-brgp0dk0lpfnj8h3i2akt8gmi97523k6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
