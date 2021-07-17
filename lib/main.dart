@@ -27,7 +27,10 @@ class _MyAppState extends State<MyApp> {
       builder: (context, snapshot) {
         // Check for errors
         if (snapshot.hasError) {
-          return Text("Something went wrong");
+          return Directionality(
+            textDirection: TextDirection.ltr,
+            child: Text("Something went wrong"),
+          );
         }
 
         // Once complete, show your application

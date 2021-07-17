@@ -13,7 +13,8 @@ class ChatView extends StatefulWidget {
 class _ChatViewState extends State<ChatView> {
   final List<ChatLog> _logs = [
     ChatLog(
-      message: "Lorem ipsum",
+      message:
+          "Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum",
       sender: "Nabil",
       timeSent: DateTime.now(),
     ),
@@ -32,17 +33,22 @@ class _ChatViewState extends State<ChatView> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Container(
-            height: 300,
-            child: ListView.builder(
-              itemCount: _logs.length,
-              itemBuilder: (_, index) {
-                return ChatBubble(_logs[index]);
-              },
+          Flexible(
+            child: Container(
+              child: ListView.builder(
+                itemCount: _logs.length,
+                itemBuilder: (_, index) {
+                  return ChatBubble(_logs[index]);
+                },
+              ),
             ),
           ),
-          Row(
-            children: [],
+          Container(
+            height: 40,
+            color: Colors.grey,
+            child: Row(
+              children: [],
+            ),
           ),
         ],
       ),
