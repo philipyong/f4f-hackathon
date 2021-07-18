@@ -16,14 +16,13 @@ class MyApp extends StatelessWidget {
         future: _initialization,
         builder: (context, appSnapshot) {
           return MaterialApp(
-            title: 'FlutterChat',
             theme: ThemeData(
-              primarySwatch: Colors.pink,
-              backgroundColor: Colors.pink,
-              accentColor: Colors.deepPurple,
+              primarySwatch: Colors.deepPurple,
+              backgroundColor: Colors.deepPurple,
+              accentColor: Color(0xFFC4C4C4),
               accentColorBrightness: Brightness.dark,
               buttonTheme: ButtonTheme.of(context).copyWith(
-                buttonColor: Colors.pink,
+                buttonColor: Colors.deepPurple,
                 textTheme: ButtonTextTheme.primary,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),

@@ -30,13 +30,32 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('FlutterChat'),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Theme.of(context).primaryIconTheme.color,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         actions: [
           DropdownButton(
             underline: Container(),
-            icon: Icon(
-              Icons.more_vert,
-              color: Theme.of(context).primaryIconTheme.color,
+            icon: Container(
+              padding: EdgeInsets.symmetric(
+                vertical: 6,
+                horizontal: 10,
+              ),
+              child: CircleAvatar(
+                radius: 24,
+                backgroundColor: Colors.white,
+                child: CircleAvatar(
+                  radius: 20,
+                  backgroundImage: NetworkImage(
+                      "https://miro.medium.com/fit/c/262/262/1*9VK9nJcSHO0uYeYwuFlGDA.jpeg"),
+                ),
+              ),
             ),
             items: [
               DropdownMenuItem(
