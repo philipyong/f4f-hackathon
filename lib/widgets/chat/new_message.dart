@@ -3,6 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NewMessage extends StatefulWidget {
+  final String chatGroupId;
+
+  NewMessage(this.chatGroupId);
+
   @override
   _NewMessageState createState() => _NewMessageState();
 }
@@ -18,7 +22,11 @@ class _NewMessageState extends State<NewMessage> {
         .collection('users')
         .doc(user!.uid)
         .get();
-    FirebaseFirestore.instance.collection('chat').add({
+    FirebaseFirestore.instance
+        .collection('chat-groups')
+        .doc(this.widget.chatGroupId)
+        .collection('chat')
+        .add({
       'text': _enteredMessage,
       'createdAt': Timestamp.now(),
       'userId': user.uid,
