@@ -1,70 +1,51 @@
+import 'package:f4f_hackathon/screens/auth_screen.dart';
+import 'package:f4f_hackathon/screens/chat_screen.dart';
+import 'package:f4f_hackathon/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-import 'package:f4f_hackathon/widgets/app_bar.dart';
-import 'package:f4f_hackathon/widgets/chat_view.dart';
-// import 'package:f4f_hackathon/widgets/list_view.dart';
+void main() => runApp(MyApp());
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyApp());
-}
-
-class MyApp extends StatefulWidget {
-  // This widget is the root of your application.
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final Future<FirebaseApp> _initialization = Firebase.initializeApp();
     return FutureBuilder(
-      // Initialize FlutterFire:
-      future: _initialization,
-      builder: (context, snapshot) {
-        // Check for errors
-        if (snapshot.hasError) {
-          return Directionality(
-            textDirection: TextDirection.ltr,
-            child: Text("Something went wrong"),
-          );
-        }
-
-        // Once complete, show your application
-        if (snapshot.connectionState == ConnectionState.done) {
+        // Initialize FlutterFire:
+        future: _initialization,
+        builder: (context, appSnapshot) {
           return MaterialApp(
-            title: 'Flutter Demo',
+            title: 'FlutterChat',
             theme: ThemeData(
-              primarySwatch: Colors.blue,
+              primarySwatch: Colors.pink,
+              backgroundColor: Colors.pink,
+              accentColor: Colors.deepPurple,
+              accentColorBrightness: Brightness.dark,
+              buttonTheme: ButtonTheme.of(context).copyWith(
+                buttonColor: Colors.pink,
+                textTheme: ButtonTextTheme.primary,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
             ),
-            home: MyHomePage(),
+            home: appSnapshot.connectionState != ConnectionState.done
+                ? SplashScreen()
+                : StreamBuilder(
+                    stream: FirebaseAuth.instance.authStateChanges(),
+                    builder: (ctx, userSnapshot) {
+                      if (userSnapshot.connectionState ==
+                          ConnectionState.waiting) {
+                        return SplashScreen();
+                      }
+                      if (userSnapshot.hasData) {
+                        return ChatScreen();
+                      }
+                      return AuthScreen();
+                    },
+                  ),
           );
-        }
-
-        // Otherwise, show something whilst waiting for initialization to complete
-        return Directionality(
-          textDirection: TextDirection.ltr,
-          child: Text("Loading..."),
-        );
-      },
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustAppBar(isHome: true),
-      body: ChatView(),
-    );
+        });
   }
 }
