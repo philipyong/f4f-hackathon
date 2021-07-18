@@ -8,6 +8,10 @@ import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 
 class AuthScreen extends StatefulWidget {
+  final Function _setProfileImgUrl;
+
+  AuthScreen(this._setProfileImgUrl);
+
   @override
   _AuthScreenState createState() => _AuthScreenState();
 }
@@ -94,6 +98,11 @@ class _AuthScreenState extends State<AuthScreen> {
         email: email,
         password: password,
       );
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(authResult.user?.uid)
+          .get()
+          .then((value) => {this.widget._setProfileImgUrl(value["image_url"])});
     } on PlatformException catch (err) {
       var message = 'An error occurred, please check your credentials!';
 

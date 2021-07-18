@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 class NewMessage extends StatefulWidget {
   final String chatGroupId;
@@ -29,6 +30,7 @@ class _NewMessageState extends State<NewMessage> {
         .add({
       'text': _enteredMessage,
       'createdAt': Timestamp.now(),
+      'timeSent': DateFormat("dd/mm/yyyy HH:mm").format(DateTime.now()),
       'userId': user.uid,
       'username': userData['username'],
       'userImage': userData['image_url']
@@ -50,6 +52,7 @@ class _NewMessageState extends State<NewMessage> {
               autocorrect: true,
               enableSuggestions: true,
               decoration: InputDecoration(labelText: 'Send a message...'),
+              style: TextStyle(color: Colors.white),
               onChanged: (value) {
                 setState(() {
                   _enteredMessage = value;

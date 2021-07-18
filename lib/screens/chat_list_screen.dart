@@ -1,4 +1,3 @@
-import 'package:f4f_hackathon/screens/chat_screen.dart';
 import 'package:f4f_hackathon/widgets/chat_rooms.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

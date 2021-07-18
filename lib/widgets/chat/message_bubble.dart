@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class MessageBubble extends StatelessWidget {
   MessageBubble(
     this.message,
     this.userName,
     this.userImage,
-    this.isMe, {
+    this.isMe,
+    this.dateCreated, {
     this.key,
   });
 
@@ -14,65 +16,142 @@ class MessageBubble extends StatelessWidget {
   final String userName;
   final String userImage;
   final bool isMe;
+  final String dateCreated;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Row(
-          mainAxisAlignment:
-              isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                color: isMe ? Colors.grey[300] : Theme.of(context).accentColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  topRight: Radius.circular(12),
-                  bottomLeft: !isMe ? Radius.circular(0) : Radius.circular(12),
-                  bottomRight: isMe ? Radius.circular(0) : Radius.circular(12),
-                ),
+        Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: 5,
+            horizontal: 10,
+          ),
+          child: Column(
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment:
+                    isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+                children: !isMe
+                    ? [
+                        Column(
+                          children: [
+                            Text(
+                              dateCreated,
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: Colors.white,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 4,
+                            ),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8.0),
+                              child: Image.network(
+                                userImage,
+                                width: 80,
+                                height: 80,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Flexible(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: Color(0xFFC4C4C4),
+                                ),
+                                child: Text(
+                                  message,
+                                  style: TextStyle(
+                                    fontFamily: "Quicksand",
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 6),
+                              Text(
+                                userName,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  fontFamily: "Quicksand",
+                                  color: Colors.white,
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      ]
+                    : [
+                        Column(
+                          children: [
+                            Text(
+                              dateCreated,
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: Colors.white,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 4,
+                            ),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8.0),
+                              child: Image.network(
+                                userImage,
+                                width: 80,
+                                height: 80,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Flexible(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: Color(0xFFC4C4C4),
+                                ),
+                                child: Text(
+                                  message,
+                                  style: TextStyle(
+                                    fontFamily: "Quicksand",
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 6),
+                              Text(
+                                userName,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  fontFamily: "Quicksand",
+                                  color: Colors.white,
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      ].reversed.toList(),
               ),
-              width: 140,
-              padding: EdgeInsets.symmetric(
-                vertical: 10,
-                horizontal: 16,
-              ),
-              margin: EdgeInsets.symmetric(
-                vertical: 16,
-                horizontal: 8,
-              ),
-              child: Column(
-                crossAxisAlignment:
-                    isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    userName,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: isMe ? Colors.black : Colors.blue,
-                    ),
-                  ),
-                  Text(
-                    message,
-                    style: TextStyle(
-                      color: isMe ? Colors.black : Colors.blue,
-                    ),
-                    textAlign: isMe ? TextAlign.end : TextAlign.start,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-        Positioned(
-          top: 0,
-          left: isMe ? null : 120,
-          right: isMe ? 120 : null,
-          child: CircleAvatar(
-            backgroundImage: NetworkImage(
-              userImage,
-            ),
+            ],
           ),
         ),
       ],

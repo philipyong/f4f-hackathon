@@ -57,8 +57,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 backgroundColor: Colors.white,
                 child: CircleAvatar(
                   radius: 20,
-                  backgroundImage: NetworkImage(
-                      "https://miro.medium.com/fit/c/262/262/1*9VK9nJcSHO0uYeYwuFlGDA.jpeg"),
+                  backgroundImage: NetworkImage(this.widget.profileImgUrl),
                 ),
               ),
             ),
