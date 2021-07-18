@@ -5,6 +5,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 class ChatScreen extends StatefulWidget {
+  final String profileImgUrl;
+  final String chatRoomId;
+
+  ChatScreen(this.profileImgUrl, this.chatRoomId);
+
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
@@ -80,12 +85,13 @@ class _ChatScreenState extends State<ChatScreen> {
         ],
       ),
       body: Container(
+        color: Theme.of(context).backgroundColor,
         child: Column(
           children: <Widget>[
             Expanded(
-              child: Messages(),
+              child: Messages(this.widget.chatRoomId),
             ),
-            NewMessage(),
+            NewMessage(this.widget.chatRoomId),
           ],
         ),
       ),

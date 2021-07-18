@@ -4,11 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Messages extends StatelessWidget {
+  final String docId;
+
+  Messages(this.docId);
+
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
+    print(docId);
+
     return StreamBuilder(
       stream: FirebaseFirestore.instance
+          .collection('chat-groups')
+          .doc(docId)
           .collection('chat')
           .orderBy(
             'createdAt',
